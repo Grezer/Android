@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">firstApp</string>
+    <string name="firstString">firstString</string>
+    <string name="secondString">secondString</string>
+    <string name="findBeer">Find beer</string>
+
+    <string-array name="beers">
+        <item>Light</item>
+        <item>Amber</item>
+        <item>Brown</item>
+    </string-array>
+</resources>
