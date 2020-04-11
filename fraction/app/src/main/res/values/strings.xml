@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Fraction</string>
+    <string name="sum">+</string>
+    <string name="difference">-</string>
+    <string name="multiplication">*</string>
+    <string name="divide">/</string>
+    <string name="result">Result</string>
+</resources>
