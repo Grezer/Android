@@ -119,4 +119,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resultButton" />
 
+    <Switch
+        android:id="@+id/switchDisplayMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="325dp"
+        android:checked="true"
+        android:text="@string/fraction"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:checked="true" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

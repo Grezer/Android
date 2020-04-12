@@ -1,7 +1,7 @@
 package com.example.fraction;
 
 class Fraction {
-    int numerator, denominator;
+    int numerator, denominator, wholePart = 0;
 
     Fraction(){}
 
@@ -10,24 +10,36 @@ class Fraction {
         denominator = d;
     }
 
-    public static Fraction sum(Fraction f1, Fraction f2){
+    public static Object sum(Fraction f1, Fraction f2, Boolean displayMode){
         Fraction result = new Fraction(f1.numerator * f2.denominator + f2.numerator * f1.denominator, f1.denominator * f2.denominator);
-        return result.simplify();
+        if(displayMode)
+            return result.simplify();
+        else
+            return (double)result.numerator/(double)result.denominator;
     }
 
-    public static Fraction difference(Fraction f1, Fraction f2){
+    public static Object difference(Fraction f1, Fraction f2, Boolean displayMode){
         Fraction result = new Fraction(f1.numerator * f2.denominator - f2.numerator * f1.denominator, f1.denominator * f2.denominator);
-        return result.simplify();
+        if(displayMode)
+            return result.simplify();
+        else
+            return (double)result.numerator/(double)result.denominator;
     }
 
-    public static Fraction multiplication(Fraction f1, Fraction f2){
+    public static Object multiplication(Fraction f1, Fraction f2, Boolean displayMode){
         Fraction result = new Fraction(f1.numerator * f2.numerator, f1.denominator * f2.denominator);
-        return result.simplify();
+        if(displayMode)
+            return result.simplify();
+        else
+            return (double)result.numerator/(double)result.denominator;
     }
 
-    public static Fraction divide(Fraction f1, Fraction f2){
+    public static Object divide(Fraction f1, Fraction f2, Boolean displayMode){
         Fraction result = new Fraction(f1.numerator * f2.denominator, f1.denominator * f2.numerator);
-        return result.simplify();
+        if(displayMode)
+            return result.simplify();
+        else
+            return (double)result.numerator/(double)result.denominator;
     }
 
     private Fraction simplify() {
@@ -38,6 +50,10 @@ class Fraction {
                 denominator /= i;
                 i = 2;
             }
+        if (numerator/denominator != 0) {
+            wholePart = numerator/denominator;
+            numerator %= denominator;
+        }
         return this;
     }
 }

@@ -5,4 +5,5 @@
     <string name="multiplication">*</string>
     <string name="divide">/</string>
     <string name="result">Result</string>
+    <string name="fraction">Fraction</string>
 </resources>
