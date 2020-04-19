@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Horoscope</string>
+    <string name="back">back</string>
+    <string name="learnMore">learn more</string>
+    <string name="aquarius">Водолей: 16 февраля - 11 марта</string>
+    <string name="aries">Овен: 19 апреля - 13 мая</string>
+    <string name="cancer">Рак: 21 июля - 9 августа</string>
+    <string name="capricorn">Козерог: 19 января - 15 февраля</string>
+    <string name="gemini">Близнецы: 20 июня - 20 июля</string>
+    <string name="leo">Лев: 10 августа - 15 сентября</string>
+    <string name="libra">Весы: 31 октября - 22 ноября</string>
+    <string name="pisces">Рыбы: 12 марта - 18 апреля</string>
+    <string name="sagittarius">Стрелец: 18 декабря - 18 января</string>
+    <string name="scorpion">Скорпион: 23 ноября - 29 ноября</string>
+    <string name="taurus">Телец: 14 мая - 19 июня</string>
+    <string name="virgo">Дева: 16 сентября — 30 октября</string>
+</resources>
