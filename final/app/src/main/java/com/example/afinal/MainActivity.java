@@ -2,6 +2,8 @@ package com.example.afinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -22,40 +24,46 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private ArrayList<String> items;
     private ArrayAdapter<String> itemsAdapter;
-    private ListView lvItems;
+    private SwipeMenuListView listView;
+    DBHelper mdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /*
+        mdb = new DBHelper(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        listView = findViewById(R.id.listView);
+        items = new ArrayList<String>();
         readItems();
-        itemsAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, items);
-        lvItems = (ListView) findViewById(R.id.lvItems);
-        items = new ArrayList<String>();
-        itemsAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, items);
-        lvItems.setAdapter(itemsAdapter);
-        setupListViewListener();
-        */
+        createAdapt();
+    }
 
+    public void onAddItem(View v) {
+        EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
+        String itemText = etNewItem.getText().toString();
+        boolean insertTask = mdb.add(itemText);
+        etNewItem.setText("");
+        readItems();
+        createAdapt();
+    }
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        // read items from db here here
-        SwipeMenuListView listView = findViewById(R.id.listView);
+    private void readItems() {
+        Cursor data = mdb.getData();
         items = new ArrayList<String>();
-        items.add("first elem");
-        items.add("second elem");
+        while (data.moveToNext()) {
+            items.add(data.getString(0));
+        }
+    }
+
+    private void createAdapt() {
         itemsAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, items);
         listView.setAdapter(itemsAdapter);
-
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
             @Override
@@ -70,66 +78,19 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-
         listView.setMenuCreator(creator);
-
         listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        // delete here !!!
+                        mdb.deleteData(items.get(position));
                         items.remove(position);
                         itemsAdapter.notifyDataSetChanged();
-
-
                         break;
                 }
                 return false;
             }
         });
-
-    }
-
-    public void onAddItem(View v) {
-        EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
-        String itemText = etNewItem.getText().toString();
-        itemsAdapter.add(itemText);
-        etNewItem.setText("");
-        writeItems();
-    }
-
-    private void setupListViewListener() {
-        lvItems.setOnItemLongClickListener(
-                new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> adapter,
-                                                   View item, int pos, long id) {
-                        items.remove(pos);
-                        itemsAdapter.notifyDataSetChanged();
-                        writeItems();
-                        return true;
-                    }
-                });
-    }
-
-    private void readItems() {
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
-        try {
-            items = new ArrayList<String>(FileUtils.readLines(todoFile));
-        } catch (IOException e) {
-            items = new ArrayList<String>();
-        }
-    }
-
-    private void writeItems() {
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
-        try {
-            FileUtils.writeLines(todoFile, items);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
